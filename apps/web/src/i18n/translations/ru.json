@@ -4219,6 +4219,14 @@
       "v": "v"
     }
   ],
+  "12a9843a46e14fca": "Reading",
+  "04307adf50c4a601": "Editing",
+  "22d420aadb4b6bf4": "Running",
+  "77fdea5a6de69b11": "Failed",
+  "d4aabe7234f7e1ab": "Read",
+  "fe195020ba327a6c": "Edit",
+  "8eb9cb951857859e": "Terminal commands",
+  "948c24ea8614fc2a": "File reads and edits",
   "e58a1d884fa1d8f2": "Сведения о треде",
   "43c5fbd02c6f330a": "Показать меньше",
   "de45b075b016cb14": [
@@ -4235,6 +4243,8 @@
   "40ba99d405583425": "Ветка и пул-реквест",
   "c0910cc360603b7c": "Изменения",
   "b42b2e806ba09c36": "Серверы",
+  "249f86593cc6d0c6": "Terminal commands",
+  "ccc39bef8e5f1b5f": "File reads and edits",
   "ba1b076eac28418c": "Родословная",
   "dc28386e0a961d4d": "Боковые чаты",
   "16fb3b76d0abbb2e": "Контекстное окно",
@@ -10585,7 +10595,11 @@
   "d8d6cfd630cff22d": "красный зелёный синий оранжевый добавления удаления изменения счётчики палитра дальтонизм",
   "717e49895cfee1c7": "широкий полная ширина колонка раскладка сообщения поле ввода монитор",
   "9d5c7430a7ff76cf": "широкий полная ширина встроенная страница рендер график дашборд артефакт по центру",
-  "88365077fd80787b": "настроить показать скрыть панель карточка окружение редактор скрипты ветка пул-реквест git изменения серверы автоматизации происхождение использование лимиты 5 часов неделя квота токены контекстное окно",
+  "f5d986603ed77c71": "customize show hide panel card environment editor scripts branch pull request git changes servers terminal commands file reads edits automations lineage usage limits 5 hour weekly quota tokens context window",
+  "d9944914611c4e38": "Terminal commands in thread details",
+  "e464706e5b7c446c": "thread details card shell bash command execution running history",
+  "7539306aeab6f5f7": "File reads and edits in thread details",
+  "9bc516e4940da201": "thread details card file read edit write change running history",
   "d561f74efa5f3920": "усилие рассуждений размышление полосы график слово метка уровень поле ввода",
   "6113c17109ee0d57": "latex tex katex уравнения формулы markdown",
   "8c8364d44fa28d22": "dev nightly latest канал оформление метка скрыть нет",
@@ -11773,6 +11787,10 @@
   "b480281b3791b685": "Выберите, что показывает карточка сведений о треде. Можно также нажать на карточку правой кнопкой.",
   "662288b90e19635f": "Сбросить сведения о треде к значению по умолчанию",
   "871d059d88548434": "Сведения о треде: включено {enabled} из {total}",
+  "0b5a62362033259a": "Show terminal commands running or executed by the agent in the thread details card.",
+  "b2a8b1fd542a45e0": "Reset thread details terminal commands to default",
+  "bd5d3305bd36f510": "Show file reads and edits running or executed by the agent in the thread details card.",
+  "189afeeeac3f2034": "Reset thread details file reads and edits to default",
   "cec1fbb8b4c9180d": [
     "Включено ",
     {

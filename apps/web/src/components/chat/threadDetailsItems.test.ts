@@ -8,6 +8,8 @@ import {
 
 const usage = THREAD_DETAILS_ITEMS.find((item) => item.id === "usage")!;
 const servers = THREAD_DETAILS_ITEMS.find((item) => item.id === "servers")!;
+const terminalCommands = THREAD_DETAILS_ITEMS.find((item) => item.id === "terminalCommands")!;
+const fileActions = THREAD_DETAILS_ITEMS.find((item) => item.id === "fileActions")!;
 
 describe("thread details items", () => {
   it.each([
@@ -32,5 +34,13 @@ describe("thread details items", () => {
 
     const hidden = { threadDetailsItems: { servers: false }, threadDetailsUsageEnabled: false };
     expect(setThreadDetailsItem(hidden, servers, true)).toEqual({});
+
+    const defaults = { threadDetailsItems: {}, threadDetailsUsageEnabled: false };
+    expect(setThreadDetailsItem(defaults, terminalCommands, false)).toEqual({
+      terminalCommands: false,
+    });
+    expect(setThreadDetailsItem(defaults, fileActions, false)).toEqual({
+      fileActions: false,
+    });
   });
 });

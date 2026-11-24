@@ -4207,6 +4207,14 @@
       "v": "v"
     }
   ],
+  "12a9843a46e14fca": "Reading",
+  "04307adf50c4a601": "Editing",
+  "22d420aadb4b6bf4": "Running",
+  "77fdea5a6de69b11": "Failed",
+  "d4aabe7234f7e1ab": "Read",
+  "fe195020ba327a6c": "Edit",
+  "8eb9cb951857859e": "Terminal commands",
+  "948c24ea8614fc2a": "File reads and edits",
   "e58a1d884fa1d8f2": "스레드 세부 정보",
   "43c5fbd02c6f330a": "간략히 보기",
   "de45b075b016cb14": [
@@ -4223,6 +4231,8 @@
   "40ba99d405583425": "브랜치 및 풀 리퀘스트",
   "c0910cc360603b7c": "변경 사항",
   "b42b2e806ba09c36": "서버",
+  "249f86593cc6d0c6": "Terminal commands",
+  "ccc39bef8e5f1b5f": "File reads and edits",
   "ba1b076eac28418c": "계보",
   "dc28386e0a961d4d": "사이드 채팅",
   "16fb3b76d0abbb2e": "컨텍스트 창",
@@ -10537,7 +10547,11 @@
   "d8d6cfd630cff22d": "빨간색 녹색 파란색 주황색 추가 삭제 변경 개수 팔레트 색맹",
   "717e49895cfee1c7": "넓게 전체 너비 열 레이아웃 메시지 입력창 모니터",
   "9d5c7430a7ff76cf": "넓게 전체 너비 인라인 페이지 렌더링 차트 대시보드 아티팩트 가운데",
-  "88365077fd80787b": "사용자 지정 표시 숨기기 패널 카드 환경 편집기 스크립트 브랜치 풀 리퀘스트 git 변경 사항 서버 자동화 계보 사용량 한도 5시간 주간 할당량 토큰 컨텍스트 창",
+  "f5d986603ed77c71": "customize show hide panel card environment editor scripts branch pull request git changes servers terminal commands file reads edits automations lineage usage limits 5 hour weekly quota tokens context window",
+  "d9944914611c4e38": "Terminal commands in thread details",
+  "e464706e5b7c446c": "thread details card shell bash command execution running history",
+  "7539306aeab6f5f7": "File reads and edits in thread details",
+  "9bc516e4940da201": "thread details card file read edit write change running history",
   "d561f74efa5f3920": "추론 수준 생각 막대 그래프 단어 레이블 수준 입력창",
   "6113c17109ee0d57": "latex tex katex 수식 공식 마크다운",
   "8c8364d44fa28d22": "dev nightly latest 채널 아트워크 알약 레이블 숨기기 없음",
@@ -11719,6 +11733,10 @@
   "b480281b3791b685": "스레드 세부 정보 카드에 표시할 항목을 선택합니다. 카드를 마우스 오른쪽 버튼으로 클릭해도 됩니다.",
   "662288b90e19635f": "스레드 세부 정보 기본값으로 재설정",
   "871d059d88548434": "스레드 세부 정보: {total}개 중 {enabled}개 켜짐",
+  "0b5a62362033259a": "Show terminal commands running or executed by the agent in the thread details card.",
+  "b2a8b1fd542a45e0": "Reset thread details terminal commands to default",
+  "bd5d3305bd36f510": "Show file reads and edits running or executed by the agent in the thread details card.",
+  "189afeeeac3f2034": "Reset thread details file reads and edits to default",
   "cec1fbb8b4c9180d": [
     {
       "i": 1,

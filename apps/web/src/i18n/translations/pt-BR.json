@@ -4219,6 +4219,14 @@
       "v": "v"
     }
   ],
+  "12a9843a46e14fca": "Lendo",
+  "04307adf50c4a601": "Editando",
+  "22d420aadb4b6bf4": "Executando",
+  "77fdea5a6de69b11": "Falhou",
+  "d4aabe7234f7e1ab": "Leitura",
+  "fe195020ba327a6c": "Edição",
+  "8eb9cb951857859e": "Comandos do terminal",
+  "948c24ea8614fc2a": "Leitura e edição de arquivos",
   "e58a1d884fa1d8f2": "Detalhes da thread",
   "43c5fbd02c6f330a": "Mostrar menos",
   "de45b075b016cb14": [
@@ -4235,6 +4243,8 @@
   "40ba99d405583425": "Branch e pull request",
   "c0910cc360603b7c": "Alterações",
   "b42b2e806ba09c36": "Servidores",
+  "249f86593cc6d0c6": "Comandos do terminal",
+  "ccc39bef8e5f1b5f": "Leitura e edição de arquivos",
   "ba1b076eac28418c": "Linhagem",
   "dc28386e0a961d4d": "Chats paralelos",
   "16fb3b76d0abbb2e": "Janela de contexto",
@@ -10582,7 +10592,11 @@
   "d8d6cfd630cff22d": "vermelho verde azul laranja adições exclusões alterações contagens paleta daltonismo",
   "717e49895cfee1c7": "largo largura total coluna layout mensagens editor de mensagens monitor",
   "9d5c7430a7ff76cf": "largo largura total em linha página renderizar gráfico painel artefato centralizado",
-  "88365077fd80787b": "personalizar mostrar ocultar painel cartão ambiente editor scripts branch pull request git alterações servidores automações linhagem uso limites 5 horas semanal cota tokens janela de contexto",
+  "f5d986603ed77c71": "personalizar mostrar ocultar painel cartão ambiente editor scripts branch pull request git alterações servidores comandos terminal leitura edição arquivos automações linhagem uso limites 5 horas semanal cota tokens janela de contexto",
+  "d9944914611c4e38": "Comandos do terminal nos detalhes da thread",
+  "e464706e5b7c446c": "detalhes da thread cartão shell bash comando execução rodando histórico",
+  "7539306aeab6f5f7": "Leitura e edição de arquivos nos detalhes da thread",
+  "9bc516e4940da201": "detalhes da thread cartão arquivo leitura edição alteração rodando histórico",
   "d561f74efa5f3920": "esforço de raciocínio pensamento barras gráfico palavra rótulo nível editor de mensagens",
   "6113c17109ee0d57": "latex tex katex equações fórmulas markdown",
   "8c8364d44fa28d22": "dev nightly latest canal arte pílula rótulo ocultar nenhum",
@@ -11772,6 +11786,10 @@
   "b480281b3791b685": "Escolha o que o cartão de detalhes da thread mostra. Você também pode clicar com o botão direito no cartão.",
   "662288b90e19635f": "Redefinir os detalhes da thread para o padrão",
   "871d059d88548434": "Detalhes da thread: {enabled} de {total} ativados",
+  "0b5a62362033259a": "Mostrar comandos do terminal em execução ou executados pelo agente no cartão de detalhes da thread.",
+  "b2a8b1fd542a45e0": "Redefinir comandos do terminal nos detalhes da thread para o padrão",
+  "bd5d3305bd36f510": "Mostrar leituras e edições de arquivos em execução ou executadas pelo agente no cartão de detalhes da thread.",
+  "189afeeeac3f2034": "Redefinir leitura e edição de arquivos nos detalhes da thread para o padrão",
   "cec1fbb8b4c9180d": [
     {
       "i": 1,

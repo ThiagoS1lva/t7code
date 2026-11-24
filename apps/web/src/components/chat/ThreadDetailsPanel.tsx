@@ -25,6 +25,7 @@ import { ThreadDetailsCard } from "./ThreadDetailsCard";
 import { OpenInPicker } from "./OpenInPicker";
 import { ThreadDetailsSection } from "./ThreadDetailsSection";
 import { ThreadAutomationsPanel } from "./ThreadAutomationsPanel";
+import { ThreadDetailsActivityPanel } from "./ThreadDetailsActivityPanel";
 import { ThreadRelationshipsPanel } from "./ThreadRelationshipsControl";
 import { ThreadRepositorySections } from "./ThreadRepositorySections";
 import { ThreadServersPanel } from "./ThreadServersPanel";
@@ -308,6 +309,18 @@ export function ThreadDetailsPanel(props: ThreadDetailsPanelProps) {
 
               {density === "full" && !props.draftId && visible.servers ? (
                 <ThreadServersPanel environmentId={props.environmentId} threadId={props.threadId} />
+              ) : null}
+
+              {density === "full" &&
+              !props.draftId &&
+              (visible.terminalCommands || visible.fileActions) ? (
+                <ThreadDetailsActivityPanel
+                  environmentId={props.environmentId}
+                  threadId={props.threadId}
+                  workspaceRoot={props.gitCwd}
+                  showTerminalCommands={visible.terminalCommands}
+                  showFileActions={visible.fileActions}
+                />
               ) : null}
 
               {density === "full" && !props.draftId && visible.automations ? (

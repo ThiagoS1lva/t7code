@@ -18,6 +18,18 @@ export const THREAD_DETAILS_ITEMS = [
     label: msg("Servers", { $context: "thread details item: running dev servers" }),
     defaultVisible: true,
   },
+  {
+    id: "terminalCommands",
+    label: msg("Terminal commands", { $context: "thread details item: agent terminal commands" }),
+    defaultVisible: true,
+  },
+  {
+    id: "fileActions",
+    label: msg("File reads and edits", {
+      $context: "thread details item: agent file reads and edits",
+    }),
+    defaultVisible: true,
+  },
   { id: "automations", label: msg("Automations"), defaultVisible: true },
   {
     id: "lineage",

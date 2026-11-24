@@ -4222,6 +4222,14 @@
       "v": "v"
     }
   ],
+  "12a9843a46e14fca": "Reading",
+  "04307adf50c4a601": "Editing",
+  "22d420aadb4b6bf4": "Running",
+  "77fdea5a6de69b11": "Failed",
+  "d4aabe7234f7e1ab": "Read",
+  "fe195020ba327a6c": "Edit",
+  "8eb9cb951857859e": "Terminal commands",
+  "948c24ea8614fc2a": "File reads and edits",
   "e58a1d884fa1d8f2": "Thread-Details",
   "43c5fbd02c6f330a": "Weniger anzeigen",
   "de45b075b016cb14": [
@@ -4238,6 +4246,8 @@
   "40ba99d405583425": "Branch und Pull Request",
   "c0910cc360603b7c": "Änderungen",
   "b42b2e806ba09c36": "Server",
+  "249f86593cc6d0c6": "Terminal commands",
+  "ccc39bef8e5f1b5f": "File reads and edits",
   "ba1b076eac28418c": "Abstammung",
   "dc28386e0a961d4d": "Nebenchats",
   "16fb3b76d0abbb2e": "Kontextfenster",
@@ -10583,7 +10593,11 @@
   "d8d6cfd630cff22d": "rot grün blau orange hinzufügungen löschungen änderungen anzahl palette farbenblind",
   "717e49895cfee1c7": "breit volle breite spalte layout nachrichten eingabefeld monitor",
   "9d5c7430a7ff76cf": "breit volle breite inline seite rendern diagramm dashboard artefakt zentriert",
-  "88365077fd80787b": "anpassen anzeigen ausblenden panel karte umgebung editor skripte branch pull request git änderungen server automatisierungen herkunft nutzung limits 5 stunden wöchentlich kontingent tokens kontextfenster",
+  "f5d986603ed77c71": "customize show hide panel card environment editor scripts branch pull request git changes servers terminal commands file reads edits automations lineage usage limits 5 hour weekly quota tokens context window",
+  "d9944914611c4e38": "Terminal commands in thread details",
+  "e464706e5b7c446c": "thread details card shell bash command execution running history",
+  "7539306aeab6f5f7": "File reads and edits in thread details",
+  "9bc516e4940da201": "thread details card file read edit write change running history",
   "d561f74efa5f3920": "reasoning aufwand denken balken grafik wort bezeichnung stufe eingabefeld",
   "6113c17109ee0d57": "latex tex katex gleichungen formeln markdown",
   "8c8364d44fa28d22": "dev nightly latest kanal artwork badge bezeichnung ausblenden keine",
@@ -11772,6 +11786,10 @@
   "b480281b3791b685": "Wähle, was die Karte mit Thread-Details anzeigt. Du kannst auch mit der rechten Maustaste auf die Karte klicken.",
   "662288b90e19635f": "Thread-Details auf Standard zurücksetzen",
   "871d059d88548434": "Thread-Details: {enabled} von {total} an",
+  "0b5a62362033259a": "Show terminal commands running or executed by the agent in the thread details card.",
+  "b2a8b1fd542a45e0": "Reset thread details terminal commands to default",
+  "bd5d3305bd36f510": "Show file reads and edits running or executed by the agent in the thread details card.",
+  "189afeeeac3f2034": "Reset thread details file reads and edits to default",
   "cec1fbb8b4c9180d": [
     {
       "i": 1,

@@ -390,9 +390,21 @@ export const SETTINGS_SEARCH_ITEMS = [
     to: "/settings/appearance",
     searchTerms: [
       msg(
-        "customize show hide panel card environment editor scripts branch pull request git changes servers automations lineage usage limits 5 hour weekly quota tokens context window",
+        "customize show hide panel card environment editor scripts branch pull request git changes servers terminal commands file reads edits automations lineage usage limits 5 hour weekly quota tokens context window",
       ),
     ],
+  },
+  {
+    id: "thread-details-terminal-commands",
+    title: msg("Terminal commands in thread details"),
+    to: "/settings/appearance",
+    searchTerms: [msg("thread details card shell bash command execution running history")],
+  },
+  {
+    id: "thread-details-file-actions",
+    title: msg("File reads and edits in thread details"),
+    to: "/settings/appearance",
+    searchTerms: [msg("thread details card file read edit write change running history")],
   },
   {
     id: "effort-display",
