@@ -9,6 +9,8 @@ import {
   EnvironmentId,
   type LocalApi,
   ProjectId,
+  ProviderDriverKind,
+  ProviderInstanceId,
   ThreadId,
   type ScopedThreadRef,
 } from "@t3tools/contracts";
@@ -33,7 +35,11 @@ import { readLocalApi } from "../localApi";
 import type { Project } from "../types";
 import Sidebar from "./Sidebar";
 import { THREAD_JUMP_HINT_SHOW_DELAY_MS } from "./Sidebar.logic";
-import { SortableThreadRow } from "./sidebar/SidebarThreadRow";
+import {
+  SidebarSearchResultRow,
+  SortableThreadRow,
+  type SidebarProviderEntry,
+} from "./sidebar/SidebarThreadRow";
 import { SidebarProvider } from "./ui/sidebar";
 
 vi.mock(import("../state/olderSettledShelf"), async (original) => {
@@ -572,5 +578,119 @@ describe("sidebar settled pagination", () => {
     const loadedRows = screen.container.querySelectorAll("[data-thread-item]").length;
     await act(() => moreButton.click());
     expect(screen.container.querySelectorAll("[data-thread-item]")).toHaveLength(loadedRows);
+  });
+});
+
+describe("sidebar thread row provider icons", () => {
+  it("renders the provider icon in card, slim, folder, and search result rows", async () => {
+    const activeProject = project("active");
+    const claudeInstanceId = ProviderInstanceId.make("claudeAgent");
+    const thread = makeThreadFixture({
+      environmentId: activeProject.environmentId,
+      projectId: activeProject.id,
+      id: ThreadId.make("thread-provider-icon"),
+      title: "Provider icon thread",
+      providerInstanceId: claudeInstanceId,
+      modelSelection: { instanceId: claudeInstanceId, model: "claude-sonnet-4-5" },
+    });
+    const providerEntryByInstanceId = new Map<string, SidebarProviderEntry>([
+      [
+        claudeInstanceId,
+        {
+          instanceId: claudeInstanceId,
+          driverKind: ProviderDriverKind.make("claudeAgent"),
+          enabled: true,
+          displayName: "Claude",
+          models: [],
+        },
+      ],
+    ]);
+    const noop = () => {};
+    const commonRowProps = {
+      sortableDisabled: true,
+      contextDrag: false,
+      thread,
+      variantAction: "settle" as const,
+      settlementSupported: false,
+      snoozeSupported: false,
+      pinningSupported: false,
+      isPinned: false,
+      dropVerb: null,
+      dragOverPinned: false,
+      sweepAction: null,
+      snoozeWakeLabelText: null,
+      wokeAt: null,
+      isActive: false,
+      isRouteThread: false,
+      readOpensPullRequestsInRightPanel: () => false,
+      jumpLabel: null,
+      environmentLabel: null,
+      environmentMachine: "desktop" as const,
+      project: activeProject,
+      projectDisplayName: activeProject.title,
+      providerEntryByInstanceId,
+      timestampFormat: "24-hour" as const,
+      onThreadClick: noop,
+      onThreadActivate: noop,
+      onStartRename: noop,
+      onRenameTitleChange: noop,
+      onCommitRename: noop,
+      onCancelRename: noop,
+      isRenaming: false,
+      renamingTitle: "",
+      onContextMenu: noop,
+      onSettle: noop,
+      onActionSweepStart: noop,
+      onUnsettle: noop,
+      onSnooze: noop,
+      onUnsnooze: noop,
+      onUnpin: noop,
+      onAcknowledgeWoke: noop,
+    };
+
+    await using screen = await render(
+      <ul>
+        <SortableThreadRow {...commonRowProps} sortableId="card" variant="card" />
+        <SortableThreadRow {...commonRowProps} sortableId="slim" variant="slim" />
+        <SortableThreadRow {...commonRowProps} sortableId="folder" variant="folder" />
+        <SidebarSearchResultRow
+          isSettled={false}
+          thread={thread}
+          project={activeProject}
+          projectDisplayName={activeProject.title}
+          environmentLabel={null}
+          environmentMachine="desktop"
+          providerEntryByInstanceId={providerEntryByInstanceId}
+          isHighlighted={false}
+          isRouteActive={false}
+          resultId="search-row-1"
+          searchMatch={null}
+          searchQuery="Provider"
+          onHighlight={noop}
+          onSelect={noop}
+          onContextMenu={noop}
+          onFileDropThreads={noop}
+        />
+      </ul>,
+    );
+
+    expect(
+      screen.container.querySelector(
+        '[data-testid="sidebar-row-card"] [data-provider-driver="claudeAgent"]',
+      ),
+    ).not.toBeNull();
+    expect(
+      screen.container.querySelector(
+        '[data-testid="sidebar-row-slim"] [data-provider-driver="claudeAgent"]',
+      ),
+    ).not.toBeNull();
+    expect(
+      screen.container.querySelector(
+        '[data-testid="sidebar-row-folder"] [data-provider-driver="claudeAgent"]',
+      ),
+    ).not.toBeNull();
+    expect(
+      screen.container.querySelector('#search-row-1 [data-provider-driver="claudeAgent"]'),
+    ).not.toBeNull();
   });
 });

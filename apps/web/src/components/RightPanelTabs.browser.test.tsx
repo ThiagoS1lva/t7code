@@ -1,11 +1,20 @@
 import "~/index.css";
 
-import { EnvironmentId } from "@t3tools/contracts";
+import {
+  EnvironmentId,
+  ProviderDriverKind,
+  ProviderInstanceId,
+  ThreadId,
+  type ServerProvider,
+} from "@t3tools/contracts";
 import { describe, expect, it, vi } from "vite-plus/test";
 import { userEvent } from "vite-plus/test/browser";
 
 import { InputGroup, InputGroupAddon, InputGroupInput } from "~/components/ui/input-group";
 import type { RightPanelSurface } from "~/rightPanelStore";
+import { useQuietThreadShell } from "~/state/entities";
+import { useEnvironmentProviders } from "~/state/environments";
+import { makeThreadFixture } from "~/test-fixtures";
 import { render, stubGlobal } from "../../test/render";
 import { HistorySwipeNavigation } from "./HistorySwipeNavigation";
 import { RightPanelTabs, type RightPanelTabsProps } from "./RightPanelTabs";
@@ -13,6 +22,8 @@ import { subscribePreviewAction } from "./preview/previewActionBus";
 
 const navigateHistory = vi.hoisted(() => vi.fn());
 vi.mock("../navigationHistory", () => ({ canNavigateHistory: () => true, navigateHistory }));
+vi.mock("../state/entities", { spy: true });
+vi.mock("../state/environments", { spy: true });
 
 // Chromium starts a gesture scroll, and Electron reports its begin, only for a
 // wheel event the page did not preventDefault; it then scrolls the latched scroller.
@@ -290,5 +301,91 @@ describe("device tab rename", () => {
     await userEvent.fill(input, "日本語");
     await userEvent.keyboard("{Enter}");
     expect(onRenameDevice).toHaveBeenCalledExactlyOnceWith(DEVICE_SURFACE.id, "日本語");
+  });
+});
+
+describe("thread tab provider icon", () => {
+  it("shows the provider icon on side-chat and linked-thread tabs", async () => {
+    const environmentId = EnvironmentId.make("env-local");
+    const sideThreadId = ThreadId.make("thread-side");
+    const linkedThreadId = ThreadId.make("thread-linked");
+    const claudeInstanceId = ProviderInstanceId.make("claudeAgent");
+    const codexInstanceId = ProviderInstanceId.make("codex");
+    const providers: ReadonlyArray<ServerProvider> = [
+      {
+        instanceId: claudeInstanceId,
+        driver: ProviderDriverKind.make("claudeAgent"),
+        displayName: "Claude",
+        enabled: true,
+        installed: true,
+        status: "ready",
+        availability: "available",
+        auth: { status: "authenticated" },
+        models: [],
+      } as unknown as ServerProvider,
+      {
+        instanceId: codexInstanceId,
+        driver: ProviderDriverKind.make("codex"),
+        displayName: "Codex",
+        enabled: true,
+        installed: true,
+        status: "ready",
+        availability: "available",
+        auth: { status: "authenticated" },
+        models: [],
+      } as unknown as ServerProvider,
+    ];
+    const sideShell = makeThreadFixture({
+      environmentId,
+      id: sideThreadId,
+      title: "Side chat",
+      providerInstanceId: claudeInstanceId,
+      modelSelection: { instanceId: claudeInstanceId, model: "claude-sonnet-4-5" },
+    });
+    const linkedShell = makeThreadFixture({
+      environmentId,
+      id: linkedThreadId,
+      title: "Linked chat",
+      providerInstanceId: codexInstanceId,
+      modelSelection: { instanceId: codexInstanceId, model: "gpt-5.4" },
+    });
+
+    using _providers = vi
+      .mocked(useEnvironmentProviders)
+      .mockReturnValue(new Map([[environmentId, providers]]));
+    using _shell = vi.mocked(useQuietThreadShell).mockImplementation((ref) => {
+      if (ref?.threadId === sideThreadId) return sideShell;
+      if (ref?.threadId === linkedThreadId) return linkedShell;
+      return null;
+    });
+
+    const tabSurfaces: RightPanelSurface[] = [
+      { id: `thread:${sideThreadId}`, kind: "thread", threadId: sideThreadId },
+      {
+        id: `linked-thread:${linkedThreadId}`,
+        kind: "linked-thread",
+        viaEnvironmentId: environmentId,
+        environmentId,
+        threadId: linkedThreadId,
+        label: "Local",
+        title: "Linked chat",
+      },
+    ];
+    const props = panel(tabSurfaces[0]!).props as RightPanelTabsProps;
+    await using screen = await render(
+      <RightPanelTabs
+        {...props}
+        environmentId={environmentId}
+        surfaces={tabSurfaces}
+        activeSurfaceId={tabSurfaces[0]!.id}
+      >
+        {null}
+      </RightPanelTabs>,
+    );
+
+    const drivers = Array.from(
+      screen.container.querySelectorAll<HTMLElement>("[data-provider-driver]"),
+    ).map((element) => element.dataset.providerDriver);
+    expect(drivers).toEqual(["claudeAgent", "codex"]);
   });
 });

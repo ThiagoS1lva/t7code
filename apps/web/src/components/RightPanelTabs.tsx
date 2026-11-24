@@ -112,6 +112,9 @@ import { previewBridge } from "./preview/previewBridge";
 import { dispatchPreviewAction } from "./preview/previewActionBus";
 import { preventThumbButtonFocus, takeThumbButtonNavigation } from "./preview/thumbButtons";
 import { PierreEntryIcon } from "./chat/PierreEntryIcon";
+import { ProviderInstanceIcon } from "./chat/ProviderInstanceIcon";
+import { deriveProviderInstanceEntries, shouldShowInstanceBadge } from "~/providerInstances";
+import { useEnvironmentProviders } from "~/state/environments";
 import { resolvePullRequestState } from "./pullRequest/pullRequestPresentation";
 import { PullRequestGlyph } from "~/components/pullRequest/pullRequestIcons";
 import { observeResize } from "~/lib/observeResize";
@@ -724,7 +727,13 @@ function SurfaceIcon({
     case "thread":
       return <SideChatTabIcon environmentId={environmentId} threadId={surface.threadId} />;
     case "linked-thread":
-      return <MessagesSquare className="size-3 shrink-0" />;
+      return (
+        <SideChatTabIcon
+          environmentId={surface.environmentId}
+          threadId={surface.threadId}
+          fallback="chat"
+        />
+      );
     case "device":
       return surface.target?.platform === "ios" ? (
         <AppleIcon className="size-3 shrink-0" />
@@ -755,15 +764,50 @@ function sideChatTabState(shell: EnvironmentThreadShell | null) {
 }
 
 // Static dots: a side chat or subagent tab can stay open for a whole run.
-function SideChatTabIcon(props: { environmentId: EnvironmentId | null; threadId: ThreadId }) {
+function SideChatTabIcon(props: {
+  environmentId: EnvironmentId | null;
+  threadId: ThreadId;
+  fallback?: "auto" | "chat";
+}) {
   const shell = useQuietThreadShell(
     props.environmentId === null ? null : scopeThreadRef(props.environmentId, props.threadId),
   );
+  const providersByEnvironment = useEnvironmentProviders();
   const state = sideChatTabState(shell);
-  const Icon = shell !== null && shell.lineage.sideChat !== true ? Bot : MessagesSquare;
+  const providers =
+    props.environmentId === null ? undefined : providersByEnvironment.get(props.environmentId);
+  const providerEntries = providers ? deriveProviderInstanceEntries(providers) : [];
+  const modelInstanceId = shell?.runtime?.providerInstanceId ?? shell?.modelSelection.instanceId;
+  const providerEntry =
+    modelInstanceId === undefined
+      ? null
+      : (providerEntries.find((entry) => entry.instanceId === modelInstanceId) ?? null);
+  const showInstanceBadge =
+    providerEntry !== null && shouldShowInstanceBadge(providerEntry, providerEntries);
+  const FallbackIcon =
+    props.fallback === "chat"
+      ? MessagesSquare
+      : shell !== null && shell.lineage.sideChat !== true
+        ? Bot
+        : MessagesSquare;
   return (
     <>
-      <Icon className="size-3 shrink-0" />
+      {providerEntry !== null ? (
+        <ProviderInstanceIcon
+          driverKind={providerEntry.driverKind}
+          displayName={providerEntry.displayName}
+          accentColor={providerEntry.accentColor}
+          acpRegistryAgentId={providerEntry.acpRegistryAgentId}
+          acpRegistryIconUrl={providerEntry.acpRegistryIconUrl}
+          showBadge={showInstanceBadge}
+          badgeContent="none"
+          badgeClassName="right-[-0.125rem] bottom-[-0.125rem] h-1.5 min-w-1.5 px-0"
+          iconClassName="size-3 shrink-0"
+          className="z-auto"
+        />
+      ) : (
+        <FallbackIcon className="size-3 shrink-0" />
+      )}
       {state === null ? null : (
         <span
           className={cn(

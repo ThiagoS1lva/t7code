@@ -208,6 +208,7 @@ function terminalProcessLabel(count: number, resolve: MessageResolver): string {
 function SidebarProviderStack(props: {
   thread: SidebarThreadSummary;
   providerEntryByInstanceId: ReadonlyMap<string, SidebarProviderEntry>;
+  iconClassName?: string;
 }) {
   const stack = resolveThreadProviderStack(props.thread);
   const currentInstanceId = stack[stack.length - 1]!;
@@ -226,7 +227,7 @@ function SidebarProviderStack(props: {
       acpRegistryIconUrl={currentEntry.acpRegistryIconUrl}
       showBadge={showInstanceBadge}
       size="compact"
-      iconClassName="opacity-60"
+      iconClassName={props.iconClassName ?? "opacity-75"}
     />
   );
   if (stack.length === 1) {
@@ -1301,14 +1302,15 @@ const SidebarThreadRow = memo(function SidebarThreadRow(props: SidebarThreadRowP
       </span>
     </div>
   );
-  const titleLineIcons = metaLineEmpty ? (
+  const providerStackIcon = (
     <span aria-hidden className="inline-flex shrink-0 items-center gap-1">
       <SidebarProviderStack
         thread={thread}
         providerEntryByInstanceId={props.providerEntryByInstanceId}
       />
     </span>
-  ) : null;
+  );
+  const titleLineIcons = metaLineEmpty ? providerStackIcon : null;
 
   if (variant !== "card") {
     const multiline = variant === "folder-multiline";
@@ -1369,7 +1371,7 @@ const SidebarThreadRow = memo(function SidebarThreadRow(props: SidebarThreadRowP
               )}
               {draftIndicator}
               {title}
-              {multiline ? titleLineIcons : null}
+              {multiline ? titleLineIcons : providerStackIcon}
               {pinIndicator}
               {multiline ? null : terminalStatusIcon}
               {multiline ? null : issueBadge}
@@ -1930,6 +1932,12 @@ export const SidebarSearchResultRow = memo(function SidebarSearchResultRow(props
                   query={props.searchQuery}
                   enabled={leaseLiveStatus}
                   settled={props.isSettled}
+                />
+              </span>
+              <span aria-hidden className="inline-flex shrink-0 items-center gap-1">
+                <SidebarProviderStack
+                  thread={thread}
+                  providerEntryByInstanceId={props.providerEntryByInstanceId}
                 />
               </span>
               <span className="min-w-8 shrink-0 text-right text-xs text-muted-foreground/55 tabular-nums">
