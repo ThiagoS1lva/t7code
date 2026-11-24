@@ -46,7 +46,7 @@ jobs:
         run: |
           mkdir -p release
           if ! ls release/*.exe >/dev/null 2>&1; then
-            find "$TEMP" -type f -name "T3-Code-*-x64.exe" -path "*/app/dist/*" -exec cp -v {} release/ ; 2>/dev/null || true
+            find "$(cygpath -u "$TEMP")" -type f -name "T3-Code-*-x64.exe" -path "*/app/dist/*" -print0 | xargs -0 -I{} cp -v {} release/ || true
           fi
           ls -la release
 
