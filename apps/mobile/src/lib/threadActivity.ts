@@ -451,13 +451,6 @@ export function isSecretRequestActivityGroup(entry: ThreadFeedActivityGroup): bo
   );
 }
 
-export function isFeedbackRequestActivityGroup(entry: ThreadFeedActivityGroup): boolean {
-  return (
-    entry.activities.length === 1 &&
-    entry.activities[0]?.projectedItem.item.type === "feedback_request"
-  );
-}
-
 export function isLinkRequestActivityGroup(entry: ThreadFeedActivityGroup): boolean {
   return (
     entry.activities.length === 1 && entry.activities[0]?.projectedItem.item.type === "link_request"
