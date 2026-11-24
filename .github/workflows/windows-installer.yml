@@ -38,18 +38,20 @@ jobs:
         shell: bash
         run: vp run dist:desktop:win:x64 --verbose --keep-stage
 
-      - name: List the packaged payload
+      # When payload validation stops the build, the installer still sits in the
+      # kept stage; copy it out so it can be uploaded.
+      - name: Collect the installer
         if: always()
         shell: bash
         run: |
-          set -u
-          for dir in $(find "$RUNNER_TEMP" "$TEMP" -type d -name win-unpacked 2>/dev/null | head -3); do
-            echo "== $dir: $(find "$dir" -type f | wc -l) files"
-            find "$dir" -type f | sed "s#^$dir/##" | sort | head -250
-          done
-          ls -la release || true
+          mkdir -p release
+          if ! ls release/*.exe >/dev/null 2>&1; then
+            find "$TEMP" -type f -name "T3-Code-*-x64.exe" -path "*/app/dist/*" -exec cp -v {} release/ ; 2>/dev/null || true
+          fi
+          ls -la release
 
       - name: Upload the installer
+        if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: t3code-windows-x64-installer
@@ -58,9 +60,9 @@ jobs:
           # The installer is already compressed.
           compression-level: 0
 
-      - name: Fail when the build failed
-        if: steps.build.outcome == 'failure'
+      - name: Report a failed build
+        if: always() && steps.build.outcome == 'failure'
         shell: bash
         run: |
-          echo "The build step failed; see its log. A partial installer was uploaded above if one exists."
+          echo "The build step failed; see its log. The installer, if it was produced, was uploaded above; check the log for the validation error."
           exit 1
